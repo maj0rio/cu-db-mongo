@@ -4,18 +4,18 @@
 
 ## Окружение и воспроизведение
 
-Использован готовый комплект (MongoDB 8.0.30, replica set `hw2rs` из трёх узлов). **Изменение окружения:** вместо Docker запускался Podman (`podman-compose`), так как Docker на машине не установлен. `compose.yaml` и `lab.js` те же. При использовании Docker команды такие же с заменой `podman-compose` на `docker compose`.
+Использован готовый комплект (MongoDB 8.0.30, replica set `hw2rs` из трёх узлов). Файлы `compose.yaml` и `lab.js` не менялись, заполнен только `solution.js`. Команды выполняются в папке проекта:
 
 ```sh
-podman-compose up -d                                  # три узла + инициализация replica set
-podman-compose --profile tools run --rm lab reset     # 6 товаров и 35 заказов
-podman-compose --profile tools run --rm lab fixtures  # данные и эталоны
-podman-compose --profile tools run --rm lab data      # раздел 2–3
-podman-compose --profile tools run --rm lab index     # раздел 4
-podman-compose --profile tools run --rm lab purchase  # раздел 5
-podman-compose --profile tools run --rm lab failover  # раздел 6
-podman-compose --profile tools run --rm lab all       # все четыре сценария подряд
-podman-compose down                                   # остановить стенд
+docker compose up -d                       # три узла + инициализация replica set
+docker compose run --rm lab reset          # 6 товаров и 35 заказов
+docker compose run --rm lab fixtures       # данные и эталоны
+docker compose run --rm lab data           # раздел 2–3
+docker compose run --rm lab index          # раздел 4
+docker compose run --rm lab purchase       # раздел 5
+docker compose run --rm lab failover       # раздел 6
+docker compose run --rm lab all            # все четыре сценария подряд
+docker compose down                        # остановить стенд
 ```
 
 Итоговый прогон `all`: `data` — 22 проверки, `index` — 7, `purchase` — 20, `failover` — 7; ошибок нет.
